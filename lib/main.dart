@@ -119,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
     throw 'Não foi possível abrir o WhatsApp.';
-  }
-  }
+  }}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
