@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:contacts_app/Models/contact_model.dart';
 import 'package:contacts_app/Repository/contacts_db.dart';
 import 'package:contacts_app/Components/alert.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Contatos APP'),
+      home: const MyHomePage(title: 'Lista de fornecedores'),
     );
   }
 }
@@ -110,7 +110,17 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+  
+  Future<void> _callContact(String number)async{
+      final cleanNumber = number.replaceAll(RegExp(r'\D'), '');
 
+  final text = Uri.encodeComponent("Olá, gostaria de fazer um pedido!");
+  final url = Uri.parse('https://wa.me/$cleanNumber?text=$text');
+
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw 'Não foi possível abrir o WhatsApp.';
+  }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     return ExpansionTile(
                       title: Text(contact.name),
                       trailing: SizedBox(
-                        width: 100,
+                        width: 145,
                         child: Row(
                           children: [
                             IconButton(
@@ -176,6 +186,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 _addContact(context, contact);
                               },
                             ),
+                            IconButton(
+                              icon: Icon(Icons.chat_bubble_rounded),
+                              onPressed: () async {
+                                _callContact(contact.phone);
+                              },
+                            )
                           ],
                         ),
                       ),
@@ -195,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addContact(context),
-        tooltip: 'Cadastrar contato',
+        tooltip: 'Cadastrar fornecedor',
         child: const Icon(Icons.add),
       ),
     );
