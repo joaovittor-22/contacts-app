@@ -5,7 +5,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:sqflite/sqflite.dart' as sqflite;
-import 'package:sembast/sembast.dart';
 import 'package:sembast_web/sembast_web.dart';
 import 'package:contacts_app/Models/contact_model.dart';
 
