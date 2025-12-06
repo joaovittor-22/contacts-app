@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     return ExpansionTile(
                       title: Text(contact.name),
                       trailing: SizedBox(
-                        width: 145,
+                        width: 160,
                         child: Row(
                           children: [
                             IconButton(
